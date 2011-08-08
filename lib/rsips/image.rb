@@ -9,12 +9,8 @@ module Rsips
       @height = get_dimension :height
     end
 
-    def resize(long_side)
-      if vertical?
-        resample :height, long_side
-      else
-        resample :width, long_side
-      end
+    def resize(long_edge)
+      vertical? ? resample(:height, long_edge) : resample(:width, long_edge)
     end
 
     def vertical?
