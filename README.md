@@ -1,5 +1,5 @@
 ## Ruby sips
-`sips` is an extremely fast image processing utility that ships with OS X. It is not nearly as robust as, say, ImageMagick, but therein lies the beauty.
+`sips` is an extremely fast image processing utility that ships with OS X. It is not nearly as robust as, say, ImageMagick, but therein lies its beauty.
 
 **rsips** seeks to expand on `sips` (but not too much) and might prove to be helpful in your everyday scripting, Rakefiles, static compilers, etc.
 
