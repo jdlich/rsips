@@ -1,5 +1,3 @@
-require 'rsips/sips'
-
 module Rsips
   
   class Image
@@ -7,7 +5,7 @@ module Rsips
     include Rsips::Sips
 
     attr_reader :width, :height
-
+    
     def initialize(img)
       @img    = img
       @width  = get_dimension :width
@@ -18,7 +16,7 @@ module Rsips
       vertical? ? resample(:height, long_edge) : resample(:width, long_edge)
       self
     end
-    
+        
     def to_jpg!(compression="default")
       dup.to_jpg
       FileUtils.rm @img
