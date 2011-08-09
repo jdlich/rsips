@@ -4,7 +4,18 @@ module Rsips::Sips
   end
 
   def get_dimension(dimension)
-    `sips --getProperty pixel#{dimension.capitalize} #{@img}`.chomp.slice(/\d+$/)
+    `sips -g pixel#{dimension.capitalize} #{@img}`.chomp.slice(/\d+$/)
+  end
+  
+  def format(type, options={})
+    options  = options[:compression] || "default"
+    file_ext = case type
+      when :jpeg then "jpg"
+      when :tiff then "tif"
+      else type
+    end
+    new_image = "#{@img.split('.')[0..-2].join('.')}.#{file_ext}"
+    sips "-s format #{type} -s formatOptions #{options} #{@img} --out #{new_image}"
   end
   
   private
