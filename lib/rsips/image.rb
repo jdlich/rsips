@@ -12,6 +12,9 @@ module Rsips
       @height = get_dimension :height
     end
 
+    # TODO: how do you know it's long edge?
+    # pass in both long and short edges with
+    # short edge being optional
     def resize!(long_edge)
       vertical? ? resample(:height, long_edge) : resample(:width, long_edge)
       self
