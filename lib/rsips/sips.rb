@@ -1,4 +1,5 @@
 module Rsips::Sips
+  
   def resample(dimension, pixels)
     sips "--resample#{dimension.capitalize} #{pixels} #{@img}"
   end
