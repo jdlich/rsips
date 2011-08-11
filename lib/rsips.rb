@@ -14,4 +14,4 @@ end
 
 require 'rsips/sips'
 require 'rsips/image'
-require 'rsips/collection'
+require 'rsips/batch'
