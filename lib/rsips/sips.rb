@@ -5,7 +5,7 @@ module Rsips::Sips
   end
 
   def get_dimension(dimension)
-    `sips -g pixel#{dimension.capitalize} #{@img}`.chomp.slice(/\d+$/)
+    `sips -g pixel#{dimension.capitalize} #{@img}`.chomp.slice(/\d+$/).to_i
   end
   
   def format(type, options={})
