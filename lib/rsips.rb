@@ -8,7 +8,7 @@ $:.unshift File.expand_path(File.dirname(__FILE__))
 module Rsips
   
   # Current version of rsips
-  VERSION = '0.0.1'
+  VERSION = '0.0.2'
   
 end
 
