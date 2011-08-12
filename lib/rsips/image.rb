@@ -7,7 +7,7 @@ module Rsips
     attr_reader :width, :height
     
     def initialize(img)
-      @img    = img
+      @img    = img # TODO: strip out blank spaces
       @width  = get_dimension :width
       @height = get_dimension :height
     end
@@ -27,6 +27,10 @@ module Rsips
     
     def to_jpg(compression="default")
       format :jpeg, :compression => compression
+    end
+    
+    def orientation
+      @img.vertical? ? 'vertical' : 'horizontal'
     end
 
     def vertical?
