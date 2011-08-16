@@ -1,11 +1,11 @@
 module Rsips::Sips
   
   def resample(dimension, pixels)
-    sips "--resample#{dimension.capitalize} #{pixels} #{@img}"
+    sips "--resample#{dimension.capitalize} #{pixels} '#{@img}'"
   end
 
   def get_dimension(dimension)
-    `sips -g pixel#{dimension.capitalize} #{@img}`.chomp.slice(/\d+$/).to_i
+    `sips -g pixel#{dimension.capitalize} '#{@img}'`.chomp.slice(/\d+$/).to_i
   end
   
   def format(type, options={})
@@ -16,7 +16,7 @@ module Rsips::Sips
       else type
     end
     new_image = replace_ext(@img, new_ext)
-    sips "-s format #{type} -s formatOptions #{options} #{@img} --out #{new_image}"
+    sips "-s format #{type} -s formatOptions #{options} '#{@img}' --out #{new_image}"
   end
   
   private
