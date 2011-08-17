@@ -1,11 +1,11 @@
 module Rsips::Sips
   
+  def properties
+    Hash[`sips -g all '#{@img}'`.split("\n")[1..-1].map { |i| i.strip.split(": ") }]
+  end
+  
   def resample(dimension, pixels)
     sips "--resample#{dimension.capitalize} #{pixels} '#{@img}'"
-  end
-
-  def get_dimension(dimension)
-    `sips -g pixel#{dimension.capitalize} '#{@img}'`.chomp.slice(/\d+$/).to_i
   end
   
   def format(type, options={})

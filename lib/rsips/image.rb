@@ -3,21 +3,22 @@ module Rsips
   class Image
   
     include Rsips::Sips
-
-    attr_reader :width, :height
-    
+        
     def initialize(img)
-      @img    = img # TODO: strip out blank spaces
-      @width  = get_dimension :width
-      @height = get_dimension :height
+      @img = img
+      
+      properties.each do |k, v|
+        instance_variable_set("@#{k}", v)
+        instance_eval %{
+          def #{k}
+            instance_variable_get("@#{k}")
+          end
+        }
+      end
     end
 
-    # TODO: how do you know it's long edge?
-    # pass in both long and short edges with
-    # short edge being optional
     def resize!(long_edge)
       vertical? ? resample(:height, long_edge) : resample(:width, long_edge)
-      self
     end
         
     def to_jpg!(compression="default")
@@ -30,11 +31,11 @@ module Rsips
     end
     
     def orientation
-      @img.vertical? ? 'vertical' : 'horizontal'
+      vertical? ? 'vertical' : 'horizontal'
     end
 
     def vertical?
-      @height > @width
+      @pixelHeight.to_i > @pixelWidth.to_i # temporarily coerce here
     end
   end
 end
