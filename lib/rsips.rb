@@ -12,6 +12,7 @@ module Rsips
   
 end
 
+require 'rsips/string'
 require 'rsips/sips'
 require 'rsips/image'
 require 'rsips/batch'

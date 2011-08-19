@@ -7,12 +7,16 @@ module Rsips
     def initialize(img)
       @img = img
       
-      # sips properties
-      properties.each do |k, v|
-        instance_variable_set("@#{k}", v)
+      properties.each do |name, value|
+        name = case name
+          when "pixelHeight" then :height
+          when "pixelWidth"  then :width
+          else name.underscore
+        end
+        instance_variable_set("@#{name}", value)
         instance_eval %{
-          def #{k}
-            instance_variable_get("@#{k}")
+          def #{name}
+            instance_variable_get("@#{name}")
           end
         }
       end
@@ -21,8 +25,8 @@ module Rsips
     def resize!(pixels)
       long_edge = vertical? ? :height : :width
       resample(long_edge, pixels) do
-        @pixelHeight = get_property :pixelHeight
-        @pixelWidth  = get_property :pixelWidth
+        @height = get_property :height
+        @width  = get_property :width
       end
     end
         
@@ -40,7 +44,7 @@ module Rsips
     end
 
     def vertical?
-      @pixelHeight.to_i > @pixelWidth.to_i # temporarily coerce here
+      @height.to_i > @width.to_i # temporarily coerce here
     end
   end
 end
