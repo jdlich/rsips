@@ -4,6 +4,6 @@ class String
   end
   
   def camel_case
-    self.gsub(/_(\w)/) { $1.capitalize }
+    self.gsub(/(_|\s)(\w)/) { $2.capitalize }
   end
 end
