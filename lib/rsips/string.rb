@@ -1,9 +1,9 @@
 class String  
   def underscore
-    self.gsub(/::/, '/').
-    gsub(/([A-Z]+)([A-Z][a-z])/,'\1_\2').
-    gsub(/([a-z\d])([A-Z])/,'\1_\2').
-    tr("-", "_").
-    downcase
+    self.gsub(/([A-Z])/) { "_" + $1.downcase }
+  end
+  
+  def camel_case
+    self.gsub(/_(\w)/) { $1.capitalize }
   end
 end
