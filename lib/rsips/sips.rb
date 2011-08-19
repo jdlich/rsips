@@ -4,8 +4,13 @@ module Rsips::Sips
     Hash[`sips -g all '#{@img}'`.split("\n")[1..-1].map { |i| i.strip.split(": ") }]
   end
   
-  def resample(dimension, pixels)
+  def get_property(name)
+    `sips -g #{name} '#{@img}'`.chomp.slice(/\S+\z/)
+  end
+  
+  def resample(dimension, pixels, &block)
     sips "--resample#{dimension.capitalize} #{pixels} '#{@img}'"
+    yield
   end
   
   def format(type, options={})

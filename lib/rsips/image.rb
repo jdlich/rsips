@@ -7,6 +7,7 @@ module Rsips
     def initialize(img)
       @img = img
       
+      # sips properties
       properties.each do |k, v|
         instance_variable_set("@#{k}", v)
         instance_eval %{
@@ -17,8 +18,12 @@ module Rsips
       end
     end
 
-    def resize!(long_edge)
-      vertical? ? resample(:height, long_edge) : resample(:width, long_edge)
+    def resize!(pixels)
+      long_edge = vertical? ? :height : :width
+      resample(long_edge, pixels) do
+        @pixelHeight = get_property :pixelHeight
+        @pixelWidth  = get_property :pixelWidth
+      end
     end
         
     def to_jpg!(compression="default")
