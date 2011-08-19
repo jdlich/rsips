@@ -4,8 +4,16 @@ module Rsips::Sips
     Hash[`sips -g all '#{@img}'`.split("\n")[1..-1].map { |i| i.strip.split(": ") }]
   end
   
-  def get_property(name)
-    `sips -g #{name} '#{@img}'`.chomp.slice(/\S+\z/)
+  def reset(*properties)
+    properties.each do |p|
+      name = case p
+        when :height then "pixelHeight"
+        when :width  then "pixelWidth"
+        else name.camel_case
+      end
+      value = `sips -g #{p} '#{@img}'`.chomp.match(/:\s(.+)\z/) { $1 }
+      instance_variable_set("@#{p}", value)
+    end
   end
   
   def resample(dimension, pixels, &block)

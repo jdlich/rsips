@@ -13,6 +13,10 @@ module Rsips
           when "pixelWidth"  then :width
           else name.underscore
         end
+        value = case value
+          when /^\d+$/ then value.to_i
+          else value
+        end
         instance_variable_set("@#{name}", value)
         instance_eval %{
           def #{name}
@@ -25,8 +29,7 @@ module Rsips
     def resize!(pixels)
       long_edge = vertical? ? :height : :width
       resample(long_edge, pixels) do
-        @height = get_property :height
-        @width  = get_property :width
+        reset :height, :width
       end
     end
         
@@ -44,7 +47,7 @@ module Rsips
     end
 
     def vertical?
-      @height.to_i > @width.to_i # temporarily coerce here
+      @height > @width
     end
   end
 end
