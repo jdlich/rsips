@@ -12,13 +12,13 @@
 	require 'rsips'
 
 	image = Rsips::Image.new("photo.jpg")
-	# => @pixelWidth = "580", @pixelHeight = "870"
+	# => @width = "580", @height = "870"
 
 	image.vertical? # => true
 	
 Long edge resizing
 
 	image.resize 300 
-	# => @pixelWidth = "200", @pixelHeight => "300"
+	# => @width = "200", @height => "300"
 
 ## More to Come...
