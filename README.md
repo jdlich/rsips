@@ -1,3 +1,5 @@
+[![Code Climate](https://codeclimate.com/github/jdlich/rsips.png)](https://codeclimate.com/github/jdlich/rsips)
+
 ## Ruby sips
 `sips` is an extremely fast image processing utility that ships with OS X. It's not nearly as robust as ImageMagick but therein lies its beauty.
 
