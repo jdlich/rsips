@@ -18,10 +18,10 @@ module Rsips::Sips
   
   def resample(dimension, pixels, &block)
     sips "--resample#{dimension.capitalize} #{pixels} '#{@img}'"
-    yield
+    block_given? ? yield : @img
   end
   
-  def format(type, options={})
+  def reformat(type, options={})
     options = options[:compression] || "default"
     new_ext = case type
       when :jpeg then "jpg"
@@ -29,7 +29,9 @@ module Rsips::Sips
       else type
     end
     new_image = replace_ext(@img, new_ext)
+    
     sips "-s format #{type} -s formatOptions #{options} '#{@img}' --out #{new_image}"
+    new_image
   end
   
   private
